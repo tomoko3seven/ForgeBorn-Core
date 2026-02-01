@@ -8,7 +8,6 @@ public class FBMaterialSet {
 
     public static final MaterialIconSet MYTHRIL = new MaterialIconSet("mythril", SHINY);
 
-    public static final MaterialIconSet ADAMANTIUM = new MaterialIconSet("adamantium", SHINY);
     public static final MaterialIconSet ETHERIUM_ADAMANTIUM = new MaterialIconSet("etherium_adamantium", SHINY);
     public static final MaterialIconSet SPIRIT_ADAMANTIUM = new MaterialIconSet("spirit_adamantium", SHINY);
     public static final MaterialIconSet WIZARD_ADAMANTIUM = new MaterialIconSet("wizard_adamantium", SHINY);
