@@ -1,0 +1,13 @@
+// 1.20.1	2025-09-17T19:10:33.1576842	Registrate Provider for forgeborn [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+b15434988ce1695eb46e738c3aabffd2399f36ad assets/forgeborn/blockstates/manasteel_casing.json
+93847c9761675e676d2a6b3170d37b4886f621da assets/forgeborn/lang/en_ud.json
+2840e2ae077e34be0dae9e9910a4953e44dc51c4 assets/forgeborn/lang/en_us.json
+010bdf07952fbdac50ff3e819cf1b7de5ecb7235 assets/forgeborn/models/block/manasteel_casing.json
+8c9bac5e4d9d485cf7be1eb13ebb825dd605351d assets/forgeborn/models/item/dried_fiber.json
+85c64bcced7d5176e2bede8d117a1fabd1e22a15 assets/forgeborn/models/item/fiber.json
+891429cbfc06f6b543351a99c23560b99ca6c2a8 assets/forgeborn/models/item/manasteel_casing.json
+63d2d7f0f3b14b0e22aded732593e72b6d9aefc5 assets/forgeborn/models/item/rope.json
+e11f7d1eebdebfbb8815999fd453302515954784 assets/forgeborn/models/item/strong_rope.json
+603e9556e815c4ead4c1a644698a8130a7458a90 assets/forgeborn/models/item/wooden_block_mold.json
+60c9c6ea9b3a6aba0b6dfbdcbfe3ae5255140ba0 data/forgeborn/loot_tables/blocks/manasteel_casing.json
+3235e9f188b5336118cb63f557c0d5d1424d2a35 data/gtceu/tags/blocks/mineable/pickaxe_or_wrench.json

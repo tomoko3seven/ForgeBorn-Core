@@ -1,0 +1,72 @@
+package com.sqvizers.forgeborn.common.data;
+
+import com.gregtechceu.gtceu.GTCEu;
+import com.gregtechceu.gtceu.api.item.ComponentItem;
+import com.gregtechceu.gtceu.api.item.component.IItemComponent;
+import com.gregtechceu.gtceu.common.registry.GTRegistration;
+
+import com.sqvizers.forgeborn.api.item.curio.HookArmItem;
+import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+
+import com.sqvizers.forgeborn.api.item.curio.HungerCharmItem;
+import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.nullness.NonNullConsumer;
+
+import java.util.function.Function;
+
+import static com.sqvizers.forgeborn.common.registry.FBRegistration.REGISTRATE;
+
+public class FBItems {
+
+    static {
+        GTRegistration.REGISTRATE.creativeModeTab(() -> FBCreativeModeTabs.FORGEBORN);
+    }
+
+    public static final ItemEntry<HungerCharmItem> HUNGER_CHARM = REGISTRATE
+            .item("hunger_charm", HungerCharmItem::new)
+            .lang("Hunger Charm")
+            .properties(p -> p.stacksTo(1))
+            .tag()
+            .defaultModel()
+            .register();
+
+    public static final ItemEntry<ComponentItem> BASIC_CRAFTING_PATTERN = REGISTRATE
+            .item("basic_crafting_pattern", ComponentItem::create)
+            .properties(p -> p.stacksTo(64))
+            .defaultModel()
+            .register();
+
+    //Arms
+    public static final ItemEntry<TemplateArmItem> TEMPLATE_ARM = REGISTRATE
+            .item("template_arm", p -> new TemplateArmItem())
+            .lang("Template Arm")
+            .properties(p -> p.stacksTo(1)) // Теперь должно работать
+            .register();
+    public static final ItemEntry<HookArmItem> HOOK_ARM = REGISTRATE
+            .item("hook_arm", HookArmItem::new)
+            .lang("Hook Arm")
+            .properties(p -> p.stacksTo(1))
+            .tag(TagKey.create(Registries.ITEM, new ResourceLocation("curios", "left_arm")))
+            .register();
+
+    public static <T extends ComponentItem> NonNullConsumer<T> attach(IItemComponent... components) {
+        return item -> item.attachComponents(components);
+    }
+
+    public static <T extends Item> NonNullConsumer<T> modelPredicate(ResourceLocation predicate,
+                                                                     Function<ItemStack, Float> property) {
+        return item -> {
+            if (GTCEu.isClientSide()) {
+                ItemProperties.register(item, predicate, (itemStack, c, l, i) -> property.apply(itemStack));
+            }
+        };
+    }
+
+    public static void init() {}
+}
