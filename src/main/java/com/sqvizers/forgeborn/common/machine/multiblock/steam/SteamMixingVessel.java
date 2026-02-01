@@ -44,7 +44,7 @@ public class SteamMixingVessel {
                     .where("Y", Predicates.controller(blocks(definition.getBlock())))
                     .build())
             .workableCasingModel(GTCEu.id("block/casings/gcym/industrial_steam_casing"),
-                    GTCEu.id("block/multiblock/large_mixer"))
+                    GTCEu.id("block/multiblock/gcym/large_mixer"))
             /*
              * .tooltips(Component.translatable("forgeborncore.multiblock.smv.tooltip.1"),
              * Component.translatable("forgeborncore.multiblock.smv.tooltip.2"))
