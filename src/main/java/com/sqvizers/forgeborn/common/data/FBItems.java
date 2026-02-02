@@ -14,7 +14,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import com.sqvizers.forgeborn.api.item.curio.HungerCharmItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 
@@ -27,20 +26,6 @@ public class FBItems {
     static {
         GTRegistration.REGISTRATE.creativeModeTab(() -> FBCreativeModeTabs.FORGEBORN);
     }
-
-    public static final ItemEntry<HungerCharmItem> HUNGER_CHARM = REGISTRATE
-            .item("hunger_charm", HungerCharmItem::new)
-            .lang("Hunger Charm")
-            .properties(p -> p.stacksTo(1))
-            .tag()
-            .defaultModel()
-            .register();
-
-    public static final ItemEntry<ComponentItem> BASIC_CRAFTING_PATTERN = REGISTRATE
-            .item("basic_crafting_pattern", ComponentItem::create)
-            .properties(p -> p.stacksTo(64))
-            .defaultModel()
-            .register();
 
     //Arms
     public static final ItemEntry<TemplateArmItem> TEMPLATE_ARM = REGISTRATE

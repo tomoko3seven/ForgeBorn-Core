@@ -15,7 +15,7 @@ public class FBCreativeModeTabs {
             builder -> builder
                     .displayItems(new GTCreativeModeTabs.RegistrateDisplayItemsGenerator(ForgeBorn.MOD_ID, REGISTRATE))
                     .title(REGISTRATE.addLang("itemGroup", ForgeBorn.id("creative_tab"), "ForgeBorn: Core"))
-                    .icon(FBItems.HUNGER_CHARM::asStack)
+                    .icon(FBItems.HOOK_ARM::asStack)
                     .build())
             .register();
 
