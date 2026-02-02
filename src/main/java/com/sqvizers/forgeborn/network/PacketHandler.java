@@ -1,5 +1,6 @@
 package com.sqvizers.forgeborn.network;
 
+import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
 import com.sqvizers.forgeborn.network.item.arms.ArmAbilityPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;

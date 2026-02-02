@@ -34,7 +34,9 @@ public class ArmUtils {
                 IDynamicStackHandler stackHandler = stacksHandler.getStacks();
                 for (int i = 0; i < stackHandler.getSlots(); i++) {
                     ItemStack stack = stackHandler.getStackInSlot(i);
-                    if (stack.getItem() instanceof TemplateArmItem || stack.getItem() instanceof HookArmItem || stack.getItem() instanceof SculkArmItem) {
+                    if (stack.getItem() instanceof TemplateArmItem ||
+                            stack.getItem() instanceof HookArmItem ||
+                            stack.getItem() instanceof SculkArmItem) {
                         return stack;
                     }
                 }
@@ -43,22 +45,13 @@ public class ArmUtils {
         }).orElse(ItemStack.EMPTY);
     }
 
-    public static boolean hasLeftArm(LivingEntity entity) {
-        return !getEquippedArm(entity).isEmpty();
-    }
-
-    public static boolean allowsOffhand(net.minecraft.world.entity.LivingEntity entity) {
+    public static boolean allowsOffhand(LivingEntity entity) {
         ItemStack arm = getEquippedArm(entity);
 
         if (arm.isEmpty()) return true;
 
-        if (arm.getItem() instanceof com.sqvizers.forgeborn.api.item.curio.TemplateArmItem
-                && !(arm.getItem() == com.sqvizers.forgeborn.common.data.FBItems.SCULK_ARM.get()
-                || arm.getItem() == com.sqvizers.forgeborn.common.data.FBItems.HOOK_ARM.get())) {
-            return true;
-        }
-
-        return false;
+        Item item = arm.getItem();
+        return item == FBItems.TEMPLATE_ARM.get();
     }
 
     public static ResourceLocation getArmTexture(ItemStack stack) {

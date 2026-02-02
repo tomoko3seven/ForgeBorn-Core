@@ -1,5 +1,6 @@
 package com.sqvizers.forgeborn.network.item.arms;
 
+import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
 import com.sqvizers.forgeborn.common.entities.HookEntity;
 import com.sqvizers.forgeborn.common.data.FBItems;
 import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
@@ -10,6 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
@@ -65,6 +67,12 @@ public class ArmAbilityPacket {
                     player.level().addFreshEntity(hook);
 
                     player.getCooldowns().addCooldown(FBItems.HOOK_ARM.get(), 40);
+                }
+            }
+            if (ArmUtils.isArmEquipped(player, FBItems.TEMPLATE_ARM.get())) {
+                ItemStack armStack = ArmUtils.getEquippedArm(player);
+                if (armStack.getItem() instanceof TemplateArmItem templateArm) {
+                    templateArm.armVerticalDash(player.level(), player);
                 }
             }
         });
