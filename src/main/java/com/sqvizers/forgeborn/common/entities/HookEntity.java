@@ -20,17 +20,17 @@ import net.minecraftforge.network.NetworkHooks;
 public class HookEntity extends Projectile {
     private boolean attached = false;
     private boolean returning = false;
-    private Entity caughtEntity = null;
 
     public HookEntity(EntityType<? extends HookEntity> type, Level level) {
         super(type, level);
-        this.noPhysics = false;
     }
 
     public HookEntity(LivingEntity owner, Level level) {
         this(FBEntities.HOOK_ENTITY.get(), level);
         this.setOwner(owner);
-        this.setPos(owner.getX(), owner.getEyeY(), owner.getZ());
+        Vec3 look = owner.getLookAngle();
+        this.setPos(owner.getX() + look.x, owner.getEyeY() + look.y * 0.5, owner.getZ() + look.z);
+        this.setDeltaMovement(look.scale(1.5));
     }
 
     @Override
@@ -45,6 +45,7 @@ public class HookEntity extends Projectile {
 
         double distance = this.distanceTo(owner);
 
+
         if (!attached && !returning && distance > 15.0) {
             this.returning = true;
         }
@@ -57,37 +58,22 @@ public class HookEntity extends Projectile {
 
             if (owner instanceof Player player) {
                 Vec3 dir = this.position().subtract(player.position()).normalize();
-
-
-                double pullStrength = 0.20;
+                double pullStrength = 0.15;
                 Vec3 currentMovement = player.getDeltaMovement();
 
-                double newX = currentMovement.x + dir.x * pullStrength;
-                double newY = currentMovement.y + (dir.y * pullStrength * 0.5);
-                double newZ = currentMovement.z + dir.z * pullStrength;
-
-
-                Vec3 finalVel = new Vec3(newX, newY, newZ);
-                if (finalVel.length() > 0.6) {
-                    finalVel = finalVel.normalize().scale(0.9);
-                }
-
-                player.setDeltaMovement(finalVel);
+                player.setDeltaMovement(currentMovement.add(dir.x * pullStrength, dir.y * pullStrength * 0.6, dir.z * pullStrength));
                 player.hurtMarked = true;
                 player.fallDistance = 0;
 
-                if (distance < 3.0) this.discard();
+                if (distance < 2.5) this.discard();
             }
         }
         else if (returning) {
-
             Vec3 returnVec = owner.position().add(0, owner.getBbHeight() * 0.5, 0).subtract(this.position()).normalize().scale(1.2);
             this.setDeltaMovement(returnVec);
-
-            if (distance < 1.9) this.discard();
+            if (distance < 1.5) this.discard();
         }
         else {
-
             if (!this.level().isClientSide) {
                 HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
                 if (hitresult.getType() != HitResult.Type.MISS) {
@@ -99,18 +85,20 @@ public class HookEntity extends Projectile {
 
     @Override
     protected void onHitBlock(BlockHitResult result) {
-        super.onHitBlock(result);
-        this.attached = true;
+        if (!this.returning) {
+            this.attached = true;
+            this.setDeltaMovement(Vec3.ZERO);
+        }
     }
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        super.onHitEntity(result);
-        if (result.getEntity() instanceof ItemEntity item) {
-            this.caughtEntity = item;
-            this.returning = true;
-        } else if (result.getEntity() != this.getOwner()) {
-            this.returning = true;
+        if (result.getEntity() != this.getOwner()) {
+            if (result.getEntity() instanceof ItemEntity) {
+                this.returning = true;
+            } else {
+                this.returning = true;
+            }
         }
     }
 

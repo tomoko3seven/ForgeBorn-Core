@@ -2,7 +2,6 @@ package com.sqvizers.forgeborn.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;

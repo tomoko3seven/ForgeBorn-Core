@@ -19,9 +19,7 @@ public class PlayerRendererMixin {
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/renderer/RenderType;entitySolid(Lnet/minecraft/resources/ResourceLocation;)Lnet/minecraft/client/renderer/RenderType;"))
     private RenderType changeTemplateArmRenderType(ResourceLocation texture, PoseStack pPoseStack, MultiBufferSource pBuffer, int pCombinedLight, AbstractClientPlayer pPlayer, ModelPart pArm, ModelPart pArmSleeve) {
-        // Проверяем, надета ли Template Arm (мана-рука)
         if (ArmUtils.allowsOffhand(pPlayer)) {
-            // entityTranslucent позволит видеть прозрачность, если она есть в текстуре
             return RenderType.entityTranslucent(texture);
         }
         return RenderType.entitySolid(texture);

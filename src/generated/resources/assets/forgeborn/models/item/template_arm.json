@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "forgeborn:item/template_arm"
+    "layer0": "forgeborn:item/mana_arm"
   }
 }
