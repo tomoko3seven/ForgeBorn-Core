@@ -5,6 +5,7 @@ import com.gregtechceu.gtceu.api.item.ComponentItem;
 import com.gregtechceu.gtceu.api.item.component.IItemComponent;
 import com.gregtechceu.gtceu.common.registry.GTRegistration;
 
+import com.sqvizers.forgeborn.ForgeBorn;
 import com.sqvizers.forgeborn.api.item.curio.HookArmItem;
 import com.sqvizers.forgeborn.api.item.curio.SculkArmItem;
 import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
@@ -18,6 +19,8 @@ import net.minecraft.world.item.ItemStack;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Function;
 

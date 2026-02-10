@@ -1,6 +1,13 @@
 {
+  "block.forgeborn.dreamtree_leaves": "Dreamtree Leaves",
+  "block.forgeborn.dreamtree_sapling": "Dreamtree Sapling",
+  "block.forgeborn.livingtree_leaves": "Livingtree Leaves",
+  "block.forgeborn.livingtree_sapling": "Livingtree Sapling",
   "block.forgeborn.manasteel_casing": "Manasteel Casing",
+  "block.forgeborn.sulfuric_mushroom": "Sulfuric Mushroom",
+  "item.forgeborn.ancient_sword": "Ancient Sword",
   "item.forgeborn.hook_arm": "Hook Arm",
+  "item.forgeborn.sculk_arm": "Echo-Blaster Arm",
   "item.forgeborn.template_arm": "Template Arm",
   "itemGroup.forgeborn.creative_tab": "ForgeBorn: Core",
   "material.forgeborn.ammonia_residue": "Ammonia Residue",

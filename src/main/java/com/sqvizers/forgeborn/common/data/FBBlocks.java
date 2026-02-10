@@ -3,24 +3,60 @@ package com.sqvizers.forgeborn.common.data;
 import com.gregtechceu.gtceu.common.data.models.GTModels;
 import com.gregtechceu.gtceu.data.recipe.CustomTags;
 
+import com.sqvizers.forgeborn.common.worldgen.tree.custom.DreamTreeGrower;
+import com.sqvizers.forgeborn.common.worldgen.tree.custom.LivingTreeGrower;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import com.sqvizers.forgeborn.ForgeBorn;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.world.effect.MobEffects;
 
 import java.util.function.Supplier;
 
 import static com.sqvizers.forgeborn.common.registry.FBRegistration.REGISTRATE;
-import static net.minecraft.commands.arguments.blocks.BlockStateArgument.block;
+
 
 public class FBBlocks {
+    //Mushrooms
+    public static final BlockEntry<FlowerBlock> SULFURIC_MUSHROOM = REGISTRATE.block("sulfuric_mushroom", p -> new FlowerBlock(() -> MobEffects.WEAKNESS, 0, p))
+            .initialProperties(() -> Blocks.BROWN_MUSHROOM)
+            .properties(p -> p.noCollission().instabreak())
+            .blockstate((c, p) -> p.simpleBlock(c.get(), p.models().cross(c.getName(), p.modLoc("block/" + c.getName())).renderType("cutout")))
+            .item()
+            .build()
+            .register();
+    //Saplings
+    public static final BlockEntry<SaplingBlock> LIVINGTREE_SAPLING = REGISTRATE.block("livingtree_sapling",
+                    p -> new SaplingBlock(new LivingTreeGrower(), p))
+            .initialProperties(() -> Blocks.OAK_SAPLING)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<SaplingBlock> DREAMTREE_SAPLING = REGISTRATE.block("dreamtree_sapling",
+                    p -> new SaplingBlock(new DreamTreeGrower(), p))
+            .initialProperties(() -> Blocks.OAK_SAPLING)
+            .item()
+            .build()
+            .register();
+
+    public static final BlockEntry<LeavesBlock> LIVINGTREE_LEAVES = REGISTRATE.block("livingtree_leaves",
+                    p -> new LeavesBlock(p))
+            .initialProperties(() -> Blocks.OAK_LEAVES)
+            .item()
+            .build()
+            .register();
+    public static final BlockEntry<LeavesBlock> DREAMTREE_LEAVES = REGISTRATE.block("dreamtree_leaves",
+                    p -> new LeavesBlock(p))
+            .initialProperties(() -> Blocks.OAK_LEAVES)
+            .item()
+            .build()
+            .register();
 
     public static BlockEntry<Block> createCasingBlock(String name, ResourceLocation texture) {
         return createCasingBlock(name, Block::new, texture, () -> Blocks.IRON_BLOCK,

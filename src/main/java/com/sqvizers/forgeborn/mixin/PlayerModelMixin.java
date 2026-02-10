@@ -23,7 +23,8 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Inject(method = "setupAnim", at = @At("TAIL"))
     private void hideLeftArmAndSleeve(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        boolean hasArm = ArmUtils.hasLeftArm(entity);
+        boolean hasArm = !ArmUtils.getEquippedArm(entity).isEmpty();
+
         this.leftArm.visible = hasArm;
         this.leftSleeve.visible = hasArm;
     }

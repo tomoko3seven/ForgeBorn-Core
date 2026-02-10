@@ -27,18 +27,21 @@ public class ArmAbilityPacket {
             ServerPlayer player = ctx.get().getSender();
             if (player == null) return;
 
-            if (ArmUtils.isArmEquipped(player, FBItems.SCULK_ARM.get())) {
-                if (!player.getCooldowns().isOnCooldown(FBItems.SCULK_ARM.get())) {
 
+            ItemStack equippedArm = ArmUtils.getEquippedArm(player);
+            if (equippedArm.isEmpty()) return;
+
+
+            if (equippedArm.is(FBItems.SCULK_ARM.get())) {
+                if (!player.getCooldowns().isOnCooldown(FBItems.SCULK_ARM.get())) {
                     Vec3 start = player.getEyePosition();
                     Vec3 look = player.getLookAngle();
                     int range = 10;
 
                     for (int i = 1; i <= range; i++) {
                         Vec3 point = start.add(look.scale(i));
-
-                        if (player.level() instanceof net.minecraft.server.level.ServerLevel serverLevel) {
-                            serverLevel.sendParticles(net.minecraft.core.particles.ParticleTypes.SONIC_BOOM,
+                        if (player.level() instanceof ServerLevel serverLevel) {
+                            serverLevel.sendParticles(ParticleTypes.SONIC_BOOM,
                                     point.x, point.y, point.z, 1, 0, 0, 0, 0);
                         }
 
@@ -50,28 +53,24 @@ public class ArmAbilityPacket {
                     }
 
                     player.level().playSound(null, player.blockPosition(),
-                            net.minecraft.sounds.SoundEvents.WARDEN_SONIC_BOOM, net.minecraft.sounds.SoundSource.PLAYERS, 3.0F, 1.0F);
-
+                            SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 3.0F, 1.0F);
                     player.getCooldowns().addCooldown(FBItems.SCULK_ARM.get(), 200);
                 }
             }
 
-            if (ArmUtils.isArmEquipped(player, FBItems.HOOK_ARM.get())) {
-
+            else if (equippedArm.is(FBItems.HOOK_ARM.get())) {
                 if (!player.getCooldowns().isOnCooldown(FBItems.HOOK_ARM.get())) {
-
                     player.level().getEntitiesOfClass(HookEntity.class, player.getBoundingBox().inflate(64),
                             h -> h.getOwner() == player).forEach(net.minecraft.world.entity.Entity::discard);
 
                     HookEntity hook = new HookEntity(player, player.level());
                     player.level().addFreshEntity(hook);
-
                     player.getCooldowns().addCooldown(FBItems.HOOK_ARM.get(), 40);
                 }
             }
-            if (ArmUtils.isArmEquipped(player, FBItems.TEMPLATE_ARM.get())) {
-                ItemStack armStack = ArmUtils.getEquippedArm(player);
-                if (armStack.getItem() instanceof TemplateArmItem templateArm) {
+
+            else if (equippedArm.is(FBItems.TEMPLATE_ARM.get())) {
+                if (equippedArm.getItem() instanceof TemplateArmItem templateArm) {
                     templateArm.armVerticalDash(player.level(), player);
                 }
             }

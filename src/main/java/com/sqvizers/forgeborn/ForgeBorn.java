@@ -8,8 +8,16 @@ import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.sqvizers.forgeborn.common.data.datagen.FBWorldGenProvider;
+import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
+import com.sqvizers.forgeborn.common.worldgen.dimension.FBDimensions;
+import com.sqvizers.forgeborn.common.worldgen.tree.FBTrunkPlacerTypes;
 import com.sqvizers.forgeborn.network.PacketHandler;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +32,8 @@ import com.sqvizers.forgeborn.gtbridge.FBRecipeTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.CompletableFuture;
+
 @Mod(ForgeBorn.MOD_ID)
 public class ForgeBorn {
 
@@ -35,6 +45,10 @@ public class ForgeBorn {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ForgeBorn.init(bus);
+
+        FBDimensions.register();
+        FBTrunkPlacerTypes.register(bus);
+        FBTreeDecoratorTypes.DECORATOR_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.register(this);
@@ -81,5 +95,18 @@ public class ForgeBorn {
 
     public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
         // CustomSounds.init();
+    }
+
+    @Mod.EventBusSubscriber(modid = ForgeBorn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+
+    public class FBDataGenerators {
+        @SubscribeEvent
+        public static void gatherData(GatherDataEvent event) {
+            DataGenerator generator = event.getGenerator();
+            PackOutput output = generator.getPackOutput();
+            CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+            generator.addProvider(event.includeServer(), new FBWorldGenProvider(output, lookupProvider));
+        }
     }
 }

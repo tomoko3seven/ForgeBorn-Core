@@ -14,20 +14,6 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
 public class ArmUtils {
 
-    public static boolean isArmEquipped(LivingEntity entity, Item armItem) {
-        return CuriosApi.getCuriosInventory(entity).map(handler -> {
-            for (ICurioStacksHandler stacksHandler : handler.getCurios().values()) {
-                IDynamicStackHandler stackHandler = stacksHandler.getStacks();
-                for (int i = 0; i < stackHandler.getSlots(); i++) {
-                    if (stackHandler.getStackInSlot(i).is(armItem)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }).orElse(false);
-    }
-
     public static ItemStack getEquippedArm(LivingEntity entity) {
         return CuriosApi.getCuriosInventory(entity).map(handler -> {
             for (ICurioStacksHandler stacksHandler : handler.getCurios().values()) {

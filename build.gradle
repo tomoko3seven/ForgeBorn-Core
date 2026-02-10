@@ -148,8 +148,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    // blood magic
-    runtimeOnly fg.deobf("curse.maven:patchouli-306770:6164575")
+    //TerraBlender
+    implementation fg.deobf("curse.maven:terrablender-563928:6290448")
 
     // natures aura
     implementation fg.deobf("curse.maven:natures-aura-306626:4963590")
@@ -168,6 +168,7 @@ dependencies {
     implementation fg.deobf("curse.maven:curios-309927:6418456")
     implementation fg.deobf("curse.maven:patchouli-306770:6164575")
     implementation fg.deobf("curse.maven:ars-nouveau-401955:5894609")
+    runtimeOnly fg.deobf("curse.maven:patchouli-306770:6164575")
 
     // ad astra
     implementation fg.deobf("curse.maven:ad-astra-635042:6262032")
