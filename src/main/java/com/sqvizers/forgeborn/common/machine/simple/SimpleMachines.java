@@ -9,6 +9,7 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.SimpleTieredMachine;
+import com.gregtechceu.gtceu.api.machine.property.GTMachineModelProperties;
 import com.gregtechceu.gtceu.api.machine.steam.SimpleSteamMachine;
 import com.gregtechceu.gtceu.api.pattern.util.RelativeDirection;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
@@ -47,7 +48,7 @@ public class SimpleMachines {
                             .recipeType(FBRecipeTypes.PRESSURIZER_RECIPES)
                             .recipeModifier(SimpleSteamMachine::recipeModifier)
                             .addOutputLimit(ItemRecipeCapability.CAP, 1)
-                            .modelProperty(SimpleSteamMachine.VENT_DIRECTION_PROPERTY, RelativeDirection.BACK)
+                            .modelProperty(GTMachineModelProperties.VENT_DIRECTION, RelativeDirection.BACK)
                             .workableSteamHullModel(pressure, GTCEu.id("block/machines/arc_furnace"))
                             .register());
 

@@ -1,12 +1,12 @@
-// 1.20.1	2026-02-05T16:53:55.7057905	Registrate Provider for forgeborn [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.20.1	2026-02-18T23:11:43.3969596	Registrate Provider for forgeborn [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 8e1773ffbce6a580a68e5934e9bdbdb7253000f9 assets/forgeborn/blockstates/dreamtree_leaves.json
 03fed7bdf9a4d86793ea4ef5524f65af895dcade assets/forgeborn/blockstates/dreamtree_sapling.json
 05422e23a3e0f231c2392dc17db12febb50c116c assets/forgeborn/blockstates/livingtree_leaves.json
 497b50d6de602639e1e72de7b52e6fda149f0ddd assets/forgeborn/blockstates/livingtree_sapling.json
 b15434988ce1695eb46e738c3aabffd2399f36ad assets/forgeborn/blockstates/manasteel_casing.json
 f1e50256e42dafc19a5217d6e5164c22531c0379 assets/forgeborn/blockstates/sulfuric_mushroom.json
-bed03ce715a1f6429dd1f6bca80885a4483b72b6 assets/forgeborn/lang/en_ud.json
-c883b2fdb1078edb94c2d966ee70af8fd4c83a88 assets/forgeborn/lang/en_us.json
+d54cf8d3ad0fef6c668ec2681844b681a759710c assets/forgeborn/lang/en_ud.json
+d7c58c769528ccdef75973fea57de73935a9d5ba assets/forgeborn/lang/en_us.json
 2bbdb6e00ff9134f10ebdab98cd5c4d6c10fb95a assets/forgeborn/models/block/dreamtree_leaves.json
 622254581be2f3206dba2416b8cd959ff97aa791 assets/forgeborn/models/block/dreamtree_sapling.json
 51a25a6fdab73fa58d3595062669e2e83085f513 assets/forgeborn/models/block/livingtree_leaves.json
@@ -20,6 +20,8 @@ c74e426bb7cbeee864334624e9428bd7a88aae89 assets/forgeborn/models/item/hook_arm.j
 c5d6747b95dba75c5c2adcd41db772c6a1fe7b34 assets/forgeborn/models/item/livingtree_leaves.json
 9f32b2b530c6124caeb89e84352538f631bc5e84 assets/forgeborn/models/item/livingtree_sapling.json
 891429cbfc06f6b543351a99c23560b99ca6c2a8 assets/forgeborn/models/item/manasteel_casing.json
+943486590d06f7d39871e7138da31d79ad2f7098 assets/forgeborn/models/item/mana_building_tool.json
+ff89850826c09b3f5e39488ba69d4354664ea10e assets/forgeborn/models/item/mana_totem.json
 b664360bbaa3fbbfcc4b106a2ea9bee374a1f7ae assets/forgeborn/models/item/sculk_arm.json
 124735d07db32d690df86cd861fa1cb20e4c99e2 assets/forgeborn/models/item/sulfuric_mushroom.json
 f120c6181f514f77d13087614c65de255811d69c assets/forgeborn/models/item/template_arm.json

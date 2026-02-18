@@ -3,6 +3,7 @@ package com.sqvizers.forgeborn.client;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.sqvizers.forgeborn.ForgeBorn;
 import com.sqvizers.forgeborn.client.gui.ArmCooldownOverlay;
+import com.sqvizers.forgeborn.client.renderer.MeteorRenderer;
 import com.sqvizers.forgeborn.common.data.FBEntities;
 import com.sqvizers.forgeborn.common.data.FBItems;
 import com.sqvizers.forgeborn.utils.Arm.MechanicalArmLayer;
@@ -41,6 +42,7 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(FBEntities.HOOK_ENTITY.get(), HookRenderer::new);
+        event.registerEntityRenderer(FBEntities.METEOR.get(), MeteorRenderer::new);
     }
 
     @SubscribeEvent

@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import com.sqvizers.forgeborn.common.entities.MeteorEntity;
 
 public class FBEntities {
     public static final DeferredRegister<EntityType<?>> REGISTRY =
@@ -23,4 +24,12 @@ public class FBEntities {
                     .updateInterval(1)
                     .setShouldReceiveVelocityUpdates(true)
                     .build("hook_entity"));
+
+    public static final RegistryObject<EntityType<MeteorEntity>> METEOR =
+            REGISTRY.register("meteor", () -> EntityType.Builder.<MeteorEntity>of(MeteorEntity::new, MobCategory.MISC)
+                    .sized(2.0F, 2.0F)
+                    .clientTrackingRange(256)
+                    .updateInterval(1)
+                    .setShouldReceiveVelocityUpdates(true)
+                    .build("meteor"));
 }

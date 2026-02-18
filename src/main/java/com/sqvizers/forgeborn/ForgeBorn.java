@@ -8,6 +8,7 @@ import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
+import com.sqvizers.forgeborn.common.data.datagen.FBDatagen;
 import com.sqvizers.forgeborn.common.data.datagen.FBWorldGenProvider;
 import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
 import com.sqvizers.forgeborn.common.worldgen.dimension.FBDimensions;
@@ -95,18 +96,5 @@ public class ForgeBorn {
 
     public void registerSounds(GTCEuAPI.RegisterEvent<ResourceLocation, SoundEntry> event) {
         // CustomSounds.init();
-    }
-
-    @Mod.EventBusSubscriber(modid = ForgeBorn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-
-    public class FBDataGenerators {
-        @SubscribeEvent
-        public static void gatherData(GatherDataEvent event) {
-            DataGenerator generator = event.getGenerator();
-            PackOutput output = generator.getPackOutput();
-            CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
-            generator.addProvider(event.includeServer(), new FBWorldGenProvider(output, lookupProvider));
-        }
     }
 }

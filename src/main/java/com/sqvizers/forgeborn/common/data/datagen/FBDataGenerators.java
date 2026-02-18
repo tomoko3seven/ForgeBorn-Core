@@ -13,29 +13,16 @@ import com.sqvizers.forgeborn.ForgeBorn;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public class FBDataGenerators {
+    //Original Code by Phoenix
 
-        @SubscribeEvent
-        public static void gatherData(GatherDataEvent event) {
-            DataGenerator generator = event.getGenerator();
-            PackOutput packOutput = generator.getPackOutput();
-            ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-            var registries = event.getLookupProvider();
-            if (event.includeClient()) {
-                generator.addProvider(true, new SoundEntryBuilder.SoundEntryProvider(packOutput, ForgeBorn.MOD_ID));
-            }
-            /*generator.addProvider(event.includeServer(), new FBRecipeProvider(packOutput));
-            generator.addProvider(event.includeServer(), FBLootTableProvider.create(packOutput));
+    @SubscribeEvent
+    public static void gatherData(GatherDataEvent event) {
+        PackOutput packOutput = event.getGenerator().getPackOutput();
 
-            generator.addProvider(event.includeClient(), new FBBlockStateProvider(packOutput, existingFileHelper));
-            generator.addProvider(event.includeClient(), new FBItemModelProvider(packOutput, existingFileHelper));
-
-            ModBlockTagGenerator blockTagGenerator = generator.addProvider(event.includeServer(),
-                    new ModBlockTagGenerator(packOutput, lookupProvider, existingFileHelper));
-            generator.addProvider(event.includeServer(), new ModItemTagGenerator(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper));
-
-            generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
-            generator.addProvider(event.includeServer(), new ModPoiTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
-
-            generator.addProvider(event.includeServer(), new ModWorldGenProvider(packOutput, lookupProvider));*/
+        if (event.includeClient()) {
+            event.getGenerator().addProvider(
+                    true,
+                    new SoundEntryBuilder.SoundEntryProvider(packOutput, ForgeBorn.MOD_ID));
         }
+    }
     }
