@@ -1,9 +1,12 @@
 {
   "block.forgeborn.dreamtree_leaves": "Dreamtree Leaves",
   "block.forgeborn.dreamtree_sapling": "Dreamtree Sapling",
+  "block.forgeborn.hp_steam_pressurizer": "High Pressure Steam Pressurizer",
   "block.forgeborn.livingtree_leaves": "Livingtree Leaves",
   "block.forgeborn.livingtree_sapling": "Livingtree Sapling",
+  "block.forgeborn.lp_steam_pressurizer": "",
   "block.forgeborn.manasteel_casing": "Manasteel Casing",
+  "block.forgeborn.primitive_kiln": "Primitive Kiln",
   "block.forgeborn.sulfuric_mushroom": "Sulfuric Mushroom",
   "item.forgeborn.ancient_sword": "Ancient Sword",
   "item.forgeborn.hook_arm": "Hook Arm",

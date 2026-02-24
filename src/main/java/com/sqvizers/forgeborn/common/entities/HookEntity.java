@@ -1,6 +1,5 @@
 package com.sqvizers.forgeborn.common.entities;
 
-import com.sqvizers.forgeborn.common.data.FBEntities;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
@@ -17,7 +16,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
+import com.sqvizers.forgeborn.common.data.FBEntities;
+
 public class HookEntity extends Projectile {
+
     private boolean attached = false;
     private boolean returning = false;
 
@@ -45,7 +47,6 @@ public class HookEntity extends Projectile {
 
         double distance = this.distanceTo(owner);
 
-
         if (!attached && !returning && distance > 15.0) {
             this.returning = true;
         }
@@ -61,19 +62,19 @@ public class HookEntity extends Projectile {
                 double pullStrength = 0.15;
                 Vec3 currentMovement = player.getDeltaMovement();
 
-                player.setDeltaMovement(currentMovement.add(dir.x * pullStrength, dir.y * pullStrength * 0.6, dir.z * pullStrength));
+                player.setDeltaMovement(
+                        currentMovement.add(dir.x * pullStrength, dir.y * pullStrength * 0.6, dir.z * pullStrength));
                 player.hurtMarked = true;
                 player.fallDistance = 0;
 
                 if (distance < 2.5) this.discard();
             }
-        }
-        else if (returning) {
-            Vec3 returnVec = owner.position().add(0, owner.getBbHeight() * 0.5, 0).subtract(this.position()).normalize().scale(1.2);
+        } else if (returning) {
+            Vec3 returnVec = owner.position().add(0, owner.getBbHeight() * 0.5, 0).subtract(this.position()).normalize()
+                    .scale(1.2);
             this.setDeltaMovement(returnVec);
             if (distance < 1.5) this.discard();
-        }
-        else {
+        } else {
             if (!this.level().isClientSide) {
                 HitResult hitresult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
                 if (hitresult.getType() != HitResult.Type.MISS) {

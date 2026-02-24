@@ -20,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.mana.ManaItemHandler;
 
@@ -39,8 +39,10 @@ public class ManaBuilderItem extends Item {
     }
 
     @Override
-    public boolean overrideOtherStackedOnMe(ItemStack wandStack, ItemStack otherStack, Slot slot, ClickAction action, Player player, SlotAccess access) {
-        if (action == ClickAction.SECONDARY && !otherStack.isEmpty() && otherStack.getItem() instanceof BlockItem blockItem) {
+    public boolean overrideOtherStackedOnMe(ItemStack wandStack, ItemStack otherStack, Slot slot, ClickAction action,
+                                            Player player, SlotAccess access) {
+        if (action == ClickAction.SECONDARY && !otherStack.isEmpty() &&
+                otherStack.getItem() instanceof BlockItem blockItem) {
             CompoundTag tag = wandStack.getOrCreateTag();
             tag.put("TargetBlock", NbtUtils.writeBlockState(blockItem.getBlock().defaultBlockState()));
             player.playSound(SoundEvents.BUNDLE_INSERT, 0.8f, 1.0f);
@@ -60,7 +62,9 @@ public class ManaBuilderItem extends Item {
             if (!level.isClientSide) {
                 int mode = (getMode(stack) + 1) % 2;
                 setMode(stack, mode);
-                player.displayClientMessage(Component.literal("Mode: " + (mode == 0 ? "Square" : "Circle")).withStyle(ChatFormatting.GREEN), true);
+                player.displayClientMessage(
+                        Component.literal("Mode: " + (mode == 0 ? "Square" : "Circle")).withStyle(ChatFormatting.GREEN),
+                        true);
             }
             return InteractionResult.SUCCESS;
         }
@@ -68,12 +72,14 @@ public class ManaBuilderItem extends Item {
         if (!level.isClientSide) {
             BlockState targetState = getTargetBlock(stack);
             if (targetState == null || targetState.isAir()) {
-                player.displayClientMessage(Component.literal("No block selected! (Right-click with block in GUI)").withStyle(ChatFormatting.RED), true);
+                player.displayClientMessage(Component.literal("No block selected! (Right-click with block in GUI)")
+                        .withStyle(ChatFormatting.RED), true);
                 return InteractionResult.FAIL;
             }
 
             Item blockItemRequired = targetState.getBlock().asItem();
-            List<BlockPos> positions = getBuildPositions(context.getClickedPos(), context.getClickedFace(), getSize(stack), getMode(stack));
+            List<BlockPos> positions = getBuildPositions(context.getClickedPos(), context.getClickedFace(),
+                    getSize(stack), getMode(stack));
 
             int placedCount = 0;
             for (BlockPos pos : positions) {
@@ -92,7 +98,8 @@ public class ManaBuilderItem extends Item {
             }
 
             if (placedCount > 0) {
-                level.playSound(null, player.getX(), player.getY(), player.getZ(), targetState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        targetState.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
             }
         }
 
@@ -129,12 +136,18 @@ public class ManaBuilderItem extends Item {
         return list;
     }
 
-    public static int getMode(ItemStack stack) { return stack.getOrCreateTag().getInt("BuildMode"); }
-    public static void setMode(ItemStack stack, int mode) { stack.getOrCreateTag().putInt("BuildMode", mode); }
+    public static int getMode(ItemStack stack) {
+        return stack.getOrCreateTag().getInt("BuildMode");
+    }
+
+    public static void setMode(ItemStack stack, int mode) {
+        stack.getOrCreateTag().putInt("BuildMode", mode);
+    }
 
     public static int getSize(ItemStack stack) {
         return stack.getOrCreateTag().getInt("BuildSize");
     }
+
     public static void setSize(ItemStack stack, int size) {
         stack.getOrCreateTag().putInt("BuildSize", Math.max(0, Math.min(size, MAX_RADIUS)));
     }
@@ -142,7 +155,8 @@ public class ManaBuilderItem extends Item {
     @Nullable
     public static BlockState getTargetBlock(ItemStack stack) {
         if (stack.hasTag() && stack.getTag().contains("TargetBlock")) {
-            return NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(), stack.getTag().getCompound("TargetBlock"));
+            return NbtUtils.readBlockState(BuiltInRegistries.BLOCK.asLookup(),
+                    stack.getTag().getCompound("TargetBlock"));
         }
         return null;
     }
@@ -152,7 +166,8 @@ public class ManaBuilderItem extends Item {
         BlockState state = getTargetBlock(stack);
         String blockName = state == null ? "None" : state.getBlock().getName().getString();
         tooltip.add(Component.literal("Block: " + blockName).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal("Mode: " + (getMode(stack) == 0 ? "Square" : "Circle")).withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.literal("Mode: " + (getMode(stack) == 0 ? "Square" : "Circle"))
+                .withStyle(ChatFormatting.YELLOW));
         tooltip.add(Component.literal("Radius: " + getSize(stack)).withStyle(ChatFormatting.AQUA));
     }
 }

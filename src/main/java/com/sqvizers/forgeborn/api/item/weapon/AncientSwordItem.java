@@ -16,6 +16,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class AncientSwordItem extends SwordItem {
+
     public AncientSwordItem(Properties props) {
         super(Tiers.IRON, 3, -2.4f, props);
     }
@@ -28,7 +29,8 @@ public class AncientSwordItem extends SwordItem {
             if (!level.isClientSide) {
                 boolean newState = !stack.getOrCreateTag().getBoolean("IsOpen");
                 stack.getOrCreateTag().putBoolean("IsOpen", newState);
-                level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.IRON_TRAPDOOR_OPEN, net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.5f);
+                level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.IRON_TRAPDOOR_OPEN,
+                        net.minecraft.sounds.SoundSource.PLAYERS, 1.0f, 1.5f);
             }
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
         } else {
@@ -46,20 +48,21 @@ public class AncientSwordItem extends SwordItem {
     private void performAnimeSlash(Level level, Player player) {
         if (!(level instanceof ServerLevel serverLevel)) return;
 
-        int[] delays = {0, 6, 12, 18};
+        int[] delays = { 0, 6, 12, 18 };
 
         for (int step = 0; step < delays.length; step++) {
             final int currentStep = step;
 
-            serverLevel.getServer().tell(new net.minecraft.server.TickTask(serverLevel.getServer().getTickCount() + delays[step], () -> {
-                if (player.isAlive()) {
-                    spawnSlashParticles(serverLevel, player, currentStep);
-                    applySlashDamage(serverLevel, player);
-                    serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
-                            net.minecraft.sounds.SoundEvents.PLAYER_ATTACK_SWEEP,
-                            net.minecraft.sounds.SoundSource.PLAYERS, 1.5f, 0.5f + (currentStep * 0.2f));
-                }
-            }));
+            serverLevel.getServer().tell(
+                    new net.minecraft.server.TickTask(serverLevel.getServer().getTickCount() + delays[step], () -> {
+                        if (player.isAlive()) {
+                            spawnSlashParticles(serverLevel, player, currentStep);
+                            applySlashDamage(serverLevel, player);
+                            serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
+                                    net.minecraft.sounds.SoundEvents.PLAYER_ATTACK_SWEEP,
+                                    net.minecraft.sounds.SoundSource.PLAYERS, 1.5f, 0.5f + (currentStep * 0.2f));
+                        }
+                    }));
         }
     }
 
@@ -76,18 +79,15 @@ public class AncientSwordItem extends SwordItem {
             Vec3 particlePos;
 
             switch (step) {
-                case 0 ->
-                        particlePos = new Vec3(pos.x + x, pos.y, pos.z + tempY);
-                case 1 ->
-                        particlePos = new Vec3(pos.x, pos.y + x, pos.z + tempY);
-                case 2 ->
-                        particlePos = new Vec3(pos.x + x, pos.y + x, pos.z + tempY);
-                default ->
-                        particlePos = new Vec3(pos.x + x, pos.y - x, pos.z + tempY);
+                case 0 -> particlePos = new Vec3(pos.x + x, pos.y, pos.z + tempY);
+                case 1 -> particlePos = new Vec3(pos.x, pos.y + x, pos.z + tempY);
+                case 2 -> particlePos = new Vec3(pos.x + x, pos.y + x, pos.z + tempY);
+                default -> particlePos = new Vec3(pos.x + x, pos.y - x, pos.z + tempY);
             }
 
             level.sendParticles(new net.minecraft.core.particles.BlockParticleOption(
-                            net.minecraft.core.particles.ParticleTypes.BLOCK, net.minecraft.world.level.block.Blocks.SAND.defaultBlockState()),
+                    net.minecraft.core.particles.ParticleTypes.BLOCK,
+                    net.minecraft.world.level.block.Blocks.SAND.defaultBlockState()),
                     particlePos.x, particlePos.y, particlePos.z, 1, 0, 0, 0, 0.02);
         }
     }

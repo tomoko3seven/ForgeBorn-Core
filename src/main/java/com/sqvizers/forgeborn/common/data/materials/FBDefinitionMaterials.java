@@ -1,9 +1,6 @@
 package com.sqvizers.forgeborn.common.data.materials;
 
-import com.gregtechceu.gtceu.api.GTValues;
 import com.gregtechceu.gtceu.api.data.chemical.material.Material;
-import com.gregtechceu.gtceu.api.data.chemical.material.info.MaterialIconSet;
-import com.gregtechceu.gtceu.api.data.chemical.material.properties.ToolProperty;
 import com.gregtechceu.gtceu.api.fluids.FluidBuilder;
 import com.gregtechceu.gtceu.api.fluids.FluidState;
 
@@ -70,7 +67,6 @@ public class FBDefinitionMaterials {
                 .buildAndRegister();
 
         // Botania
-
 
         // Undergarden
 

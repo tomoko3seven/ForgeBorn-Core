@@ -1,8 +1,5 @@
 package com.sqvizers.forgeborn.common.worldgen.biome;
 
-import com.sqvizers.forgeborn.ForgeBorn;
-import com.sqvizers.forgeborn.common.worldgen.FBPlacedFeatures;
-import com.sqvizers.forgeborn.sound.FBSounds;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -10,9 +7,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-import vazkii.botania.common.world.MysticalFlowerFeature;
+
+import com.sqvizers.forgeborn.ForgeBorn;
+import com.sqvizers.forgeborn.common.worldgen.FBPlacedFeatures;
 
 public class FBBiomes {
+
     public static final ResourceKey<Biome> LIVINGWOOD_FOREST = ResourceKey.create(Registries.BIOME,
             new ResourceLocation(ForgeBorn.MOD_ID, "livingwood_forest"));
     public static final ResourceKey<Biome> DREAMWOOD_PLAINS = ResourceKey.create(Registries.BIOME,
@@ -36,13 +36,13 @@ public class FBBiomes {
 
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
 
-        BiomeGenerationSettings.Builder biomeBuilder =
-                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(
+                context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
         globalOverworldGeneration(biomeBuilder);
-        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FBPlacedFeatures.MYSTICAL_FLOWERS_PLACED_KEY);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                FBPlacedFeatures.MYSTICAL_FLOWERS_PLACED_KEY);
         BiomeDefaultFeatures.addForestFlowers(biomeBuilder);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FBPlacedFeatures.LIVINGTREE_PLACED_KEY);
-
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
@@ -61,26 +61,29 @@ public class FBBiomes {
                         .foliageColorOverride(0xffa1cc)
                         .fogColor(0xffe3b3)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        /*.backgroundMusic(Musics.createGameMusic(
-                                context.lookup(Registries.SOUND_EVENT)
-                                        .getOrThrow(ResourceKey.create(Registries.SOUND_EVENT,
-                                                new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_song")))
-                        ))*/
+                        /*
+                         * .backgroundMusic(Musics.createGameMusic(
+                         * context.lookup(Registries.SOUND_EVENT)
+                         * .getOrThrow(ResourceKey.create(Registries.SOUND_EVENT,
+                         * new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_song")))
+                         * ))
+                         */
                         .build())
                 .build();
     }
+
     public static Biome dreamwoodPlains(BootstapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
 
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
 
-        BiomeGenerationSettings.Builder biomeBuilder =
-                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(
+                context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
         globalOverworldGeneration(biomeBuilder);
-        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FBPlacedFeatures.MYSTICAL_FLOWERS_PLACED_KEY);
+        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,
+                FBPlacedFeatures.MYSTICAL_FLOWERS_PLACED_KEY);
         BiomeDefaultFeatures.addForestFlowers(biomeBuilder);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FBPlacedFeatures.DREAMTREE_PLACED_KEY);
-
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
@@ -99,11 +102,13 @@ public class FBBiomes {
                         .foliageColorOverride(0x30b0ff)
                         .fogColor(0xffe3b3)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
-                        /*.backgroundMusic(Musics.createGameMusic(
-                                context.lookup(Registries.SOUND_EVENT)
-                                        .getOrThrow(ResourceKey.create(Registries.SOUND_EVENT,
-                                                new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_song")))
-                        ))*/
+                        /*
+                         * .backgroundMusic(Musics.createGameMusic(
+                         * context.lookup(Registries.SOUND_EVENT)
+                         * .getOrThrow(ResourceKey.create(Registries.SOUND_EVENT,
+                         * new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_song")))
+                         * ))
+                         */
                         .build())
                 .build();
     }

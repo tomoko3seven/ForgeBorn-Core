@@ -21,19 +21,21 @@ import com.gregtechceu.gtceu.utils.FormattingUtil;
 
 import net.minecraft.network.chat.Component;
 
+import com.sqvizers.forgeborn.ForgeBorn;
 import com.sqvizers.forgeborn.gtbridge.FBRecipeTypes;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.BiFunction;
 
 import static com.gregtechceu.gtceu.api.GTValues.VLVH;
 import static com.gregtechceu.gtceu.api.GTValues.VLVT;
 import static com.gregtechceu.gtceu.common.data.machines.GTMachineUtils.*;
-import static com.gregtechceu.gtceu.common.registry.GTRegistration.REGISTRATE;
 import static com.gregtechceu.gtceu.utils.FormattingUtil.toEnglishName;
+import static com.sqvizers.forgeborn.common.registry.FBRegistration.REGISTRATE;
 
 public class SimpleMachines {
 
@@ -41,6 +43,7 @@ public class SimpleMachines {
     /// SIMPLE MACHINES ///
     ///////////////////////
 
+    // Steam
     public static final Pair<MachineDefinition, MachineDefinition> STEAM_PRESSURIZER = SimpleMachines
             .registerSteamMachines(
                     "steam_pressurizer", SimpleSteamMachine::new, (pressure, builder) -> builder
@@ -49,7 +52,7 @@ public class SimpleMachines {
                             .recipeModifier(SimpleSteamMachine::recipeModifier)
                             .addOutputLimit(ItemRecipeCapability.CAP, 1)
                             .modelProperty(GTMachineModelProperties.VENT_DIRECTION, RelativeDirection.BACK)
-                            .workableSteamHullModel(pressure, GTCEu.id("block/machines/arc_furnace"))
+                            .workableSteamHullModel(pressure, ForgeBorn.id("block/machines/pressurizer"))
                             .register());
 
     ///////////////////////////////////////////////
@@ -73,35 +76,28 @@ public class SimpleMachines {
                 tiers);
     }
 
-    public static MachineDefinition[] registerSimpleMachines(String name, GTRecipeType recipeType,
-                                                             Int2IntFunction tankScalingFunction) {
-        return registerSimpleMachines(name, recipeType, tankScalingFunction, ELECTRIC_TIERS);
-    }
-
-    public static MachineDefinition[] registerSimpleMachines(String name, GTRecipeType recipeType) {
-        return registerSimpleMachines(name, recipeType, defaultTankSizeFunction);
+    public static MachineDefinition[] registerTieredSingleBlockMachines(String name,
+                                                                        BiFunction<IMachineBlockEntity, Integer, MetaMachine> factory,
+                                                                        BiFunction<Integer, MachineBuilder<MachineDefinition, ?>, MachineDefinition> builder,
+                                                                        int... tiers) {
+        return registerTieredMachines(name, factory, builder, tiers);
     }
 
     public static MachineDefinition[] registerTieredMachines(String name,
                                                              BiFunction<IMachineBlockEntity, Integer, MetaMachine> factory,
-                                                             BiFunction<Integer, MachineBuilder<MachineDefinition>, MachineDefinition> builder,
+                                                             BiFunction<Integer, MachineBuilder<MachineDefinition, ?>, MachineDefinition> builder,
                                                              int... tiers) {
-        MachineDefinition[] definitions = new MachineDefinition[tiers.length];
-        for (int i = 0; i < tiers.length; i++) {
-            int tier = tiers[i];
+        MachineDefinition[] definitions = new MachineDefinition[GTValues.TIER_COUNT];
+        for (int tier : tiers) {
             var register = REGISTRATE
-                    .machine(GTValues.VN[tier].toLowerCase() + "_" + name, holder -> factory.apply(holder, tier))
+                    .machine(GTValues.VN[tier].toLowerCase(Locale.ROOT) + "_" + name,
+                            holder -> factory.apply(holder, tier))
                     .tier(tier);
-            definitions[i] = builder.apply(tier, register);
+            definitions[tier] = builder.apply(tier, register);
         }
         return definitions;
     }
 
-    public static Component explosion() {
-        if (ConfigHolder.INSTANCE.machines.shouldWeatherOrTerrainExplosion)
-            return Component.translatable("gtceu.universal.tooltip.terrain_resist");
-        return null;
-    }
 
     public static Component[] workableTiered(int tier, long voltage, long energyCapacity, GTRecipeType recipeType,
                                              long tankCapacity, boolean input) {
@@ -120,10 +116,10 @@ public class SimpleMachines {
 
     public static Pair<MachineDefinition, MachineDefinition> registerSteamMachines(String name,
                                                                                    BiFunction<IMachineBlockEntity, Boolean, MetaMachine> factory,
-                                                                                   BiFunction<Boolean, MachineBuilder<MachineDefinition>, MachineDefinition> builder) {
+                                                                                   BiFunction<Boolean, MachineBuilder<MachineDefinition, ?>, MachineDefinition> builder) {
         MachineDefinition lowTier = builder.apply(false,
                 REGISTRATE.machine("lp_%s".formatted(name), holder -> factory.apply(holder, false))
-                        .langValue("")
+                        .langValue("I DO NOT EXIST")
                         .tier(0));
         MachineDefinition highTier = builder.apply(true,
                 REGISTRATE.machine("hp_%s".formatted(name), holder -> factory.apply(holder, true))

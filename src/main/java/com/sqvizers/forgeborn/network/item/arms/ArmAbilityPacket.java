@@ -1,9 +1,5 @@
 package com.sqvizers.forgeborn.network.item.arms;
 
-import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
-import com.sqvizers.forgeborn.common.entities.HookEntity;
-import com.sqvizers.forgeborn.common.data.FBItems;
-import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
@@ -14,23 +10,31 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
+
+import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
+import com.sqvizers.forgeborn.common.data.FBItems;
+import com.sqvizers.forgeborn.common.entities.HookEntity;
+import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
+
 import java.util.function.Supplier;
 
 public class ArmAbilityPacket {
+
     public ArmAbilityPacket(int id) {}
 
     public static void encode(ArmAbilityPacket pkt, FriendlyByteBuf buf) {}
-    public static ArmAbilityPacket decode(FriendlyByteBuf buf) { return new ArmAbilityPacket(0); }
+
+    public static ArmAbilityPacket decode(FriendlyByteBuf buf) {
+        return new ArmAbilityPacket(0);
+    }
 
     public static void handle(ArmAbilityPacket pkt, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player == null) return;
 
-
             ItemStack equippedArm = ArmUtils.getEquippedArm(player);
             if (equippedArm.isEmpty()) return;
-
 
             if (equippedArm.is(FBItems.SCULK_ARM.get())) {
                 if (!player.getCooldowns().isOnCooldown(FBItems.SCULK_ARM.get())) {
@@ -45,11 +49,15 @@ public class ArmAbilityPacket {
                                     point.x, point.y, point.z, 1, 0, 0, 0, 0);
                         }
 
-                        player.level().getEntities(player, new net.minecraft.world.phys.AABB(point.x-1, point.y-1, point.z-1, point.x+1, point.y+1, point.z+1),
-                                e -> e instanceof LivingEntity).forEach(target -> {
-                            target.hurt(player.damageSources().sonicBoom(player), 15.0F);
-                            target.push(look.x * 0.5, 0.2, look.z * 0.5);
-                        });
+                        player.level()
+                                .getEntities(player,
+                                        new net.minecraft.world.phys.AABB(point.x - 1, point.y - 1, point.z - 1,
+                                                point.x + 1, point.y + 1, point.z + 1),
+                                        e -> e instanceof LivingEntity)
+                                .forEach(target -> {
+                                    target.hurt(player.damageSources().sonicBoom(player), 15.0F);
+                                    target.push(look.x * 0.5, 0.2, look.z * 0.5);
+                                });
                     }
 
                     player.level().playSound(null, player.blockPosition(),

@@ -1,7 +1,5 @@
 package com.sqvizers.forgeborn.utils.Arm;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -9,7 +7,11 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 public class MechanicalArmModel extends EntityModel<AbstractClientPlayer> {
+
     private final ModelPart arm;
 
     public MechanicalArmModel(ModelPart root) {
@@ -29,7 +31,8 @@ public class MechanicalArmModel extends EntityModel<AbstractClientPlayer> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float r, float g, float b, float a) {
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float r,
+                               float g, float b, float a) {
         arm.render(poseStack, buffer, packedLight, packedOverlay, r, g, b, a);
     }
 }

@@ -10,6 +10,7 @@ import com.gregtechceu.gtceu.common.data.GCYMBlocks;
 import com.gregtechceu.gtceu.common.data.GTMaterials;
 import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.common.registry.GTRegistration;
+
 import com.sqvizers.forgeborn.api.machines.StrongSteamParallelMultiblockMachine;
 
 import static com.gregtechceu.gtceu.api.pattern.Predicates.any;
@@ -33,8 +34,10 @@ public class LargeSteamGrinder {
                     .aisle("B   B", "B   B", "CCCCC", " CYC ", " CCC ", " CCC ", "     ")
                     .where(' ', any())
                     .where('C', blocks(GCYMBlocks.CASING_INDUSTRIAL_STEAM.get())
-                            .or(Predicates.abilities(PartAbility.STEAM_IMPORT_ITEMS).setPreviewCount(1).setExactLimit(1))
-                            .or(Predicates.abilities(PartAbility.STEAM_EXPORT_ITEMS).setPreviewCount(1).setExactLimit(1))
+                            .or(Predicates.abilities(PartAbility.STEAM_IMPORT_ITEMS).setPreviewCount(1)
+                                    .setExactLimit(1))
+                            .or(Predicates.abilities(PartAbility.STEAM_EXPORT_ITEMS).setPreviewCount(1)
+                                    .setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.STEAM).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1).setExactLimit(1))
                             .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(1).setExactLimit(1)))
@@ -48,6 +51,5 @@ public class LargeSteamGrinder {
                     GTCEu.id("block/multiblock/gcym/large_mixer"))
             .register();
 
-    public static void init() {
-    }
+    public static void init() {}
 }

@@ -136,13 +136,16 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:jade-324717:5390389")
 
     // GregTech and dependencies
-    implementation fg.deobf("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gtceu_version}:slim")
+    implementation fg.deobf("com.gregtechceu.gtceu:gtceu-${minecraft_version}:${gtceu_version}:slim") { transitive = false }
     implementation fg.deobf("com.lowdragmc.ldlib:ldlib-forge-${minecraft_version}:${ldlib_version}") { transitive = false }
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
     runtimeOnly fg.deobf("dev.toma.configuration:configuration-forge-${minecraft_version}:${configuration_version}")
     runtimeOnly fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+
+    //Create
+    //implementation fg.deobf("curse.maven:create-328085:7178761")
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
@@ -175,6 +178,9 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:botarium-704113:5486070")
     runtimeOnly fg.deobf("curse.maven:resourceful-config-714059:6231176")
     runtimeOnly fg.deobf("curse.maven:resourceful-lib-570073:5659871")
+
+    //Stuff
+    implementation fg.deobf("curse.maven:twigs-496913:4998195")
 }
 
 mixin {

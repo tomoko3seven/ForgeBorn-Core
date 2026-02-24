@@ -1,15 +1,18 @@
 package com.sqvizers.forgeborn.client.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.sqvizers.forgeborn.utils.Arm.ArmUtils;
+
 public class ArmCooldownOverlay {
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("forgeborn", "textures/gui/arm_overlay.png");
+
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("forgeborn",
+            "textures/gui/arm_overlay.png");
 
     public static void render(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int width, int height) {
         Minecraft mc = Minecraft.getInstance();
@@ -22,7 +25,6 @@ public class ArmCooldownOverlay {
         int x = width - 50;
         int y = height - 50;
 
-
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
         guiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, 32, 32, 32, 32);
@@ -32,7 +34,7 @@ public class ArmCooldownOverlay {
 
             float cooldown = mc.player.getCooldowns().getCooldownPercent(arm.getItem(), partialTick);
             if (cooldown > 0) {
-                String text = (int)(cooldown * 100) + "%";
+                String text = (int) (cooldown * 100) + "%";
                 guiGraphics.drawString(mc.font, text, x + 8, y + 34, 0xFFFFFF, true);
             }
         }

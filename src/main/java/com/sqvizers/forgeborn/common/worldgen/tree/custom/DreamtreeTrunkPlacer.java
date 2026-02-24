@@ -1,11 +1,8 @@
 package com.sqvizers.forgeborn.common.worldgen.tree.custom;
 
-import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.sqvizers.forgeborn.common.worldgen.tree.FBTrunkPlacerTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -14,14 +11,19 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
-import net.minecraft.tags.BlockTags;
+
+import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sqvizers.forgeborn.common.worldgen.tree.FBTrunkPlacerTypes;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class DreamtreeTrunkPlacer extends TrunkPlacer {
-    public static final Codec<DreamtreeTrunkPlacer> CODEC = RecordCodecBuilder.create(instance ->
-            trunkPlacerParts(instance).apply(instance, DreamtreeTrunkPlacer::new));
+
+    public static final Codec<DreamtreeTrunkPlacer> CODEC = RecordCodecBuilder
+            .create(instance -> trunkPlacerParts(instance).apply(instance, DreamtreeTrunkPlacer::new));
 
     public DreamtreeTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
         super(baseHeight, heightRandA, heightRandB);
@@ -33,8 +35,10 @@ public class DreamtreeTrunkPlacer extends TrunkPlacer {
     }
 
     @Override
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level, BiConsumer<BlockPos, BlockState> blockSetter,
-                                                            RandomSource random, int freeTreeHeight, BlockPos pos, TreeConfiguration config) {
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader level,
+                                                            BiConsumer<BlockPos, BlockState> blockSetter,
+                                                            RandomSource random, int freeTreeHeight, BlockPos pos,
+                                                            TreeConfiguration config) {
         for (int x = -1; x <= 1; x++) {
             for (int z = -1; z <= 1; z++) {
                 setDirtAt(level, blockSetter, random, pos.offset(x, -1, z), config);
@@ -50,7 +54,6 @@ public class DreamtreeTrunkPlacer extends TrunkPlacer {
             placeLog(level, blockSetter, random, pos.above(i).east(), config);
             placeLog(level, blockSetter, random, pos.above(i).south(), config);
             placeLog(level, blockSetter, random, pos.above(i).east().south(), config);
-
 
             if (i < 4) {
                 int rootDist = 4 - i;

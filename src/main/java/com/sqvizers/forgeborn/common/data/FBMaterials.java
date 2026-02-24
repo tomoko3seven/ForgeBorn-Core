@@ -25,8 +25,6 @@ public class FBMaterials {
 
     public static Material AmmoniaResidue;
 
-
-
     // Undergarden
 
     // Nature`s Aura
@@ -34,8 +32,6 @@ public class FBMaterials {
     // Ars Noveau
 
     // Botania
-
-
 
     public static void init() {
         FBDefinitionMaterials.init();

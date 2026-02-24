@@ -4,17 +4,20 @@ import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
 import com.gregtechceu.gtceu.api.registry.registrate.MachineBuilder;
 import com.gregtechceu.gtceu.client.model.machine.overlays.WorkableOverlays;
-import com.sqvizers.forgeborn.ForgeBorn;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
+
+import com.sqvizers.forgeborn.ForgeBorn;
 
 import static com.gregtechceu.gtceu.common.data.models.GTMachineModels.*;
 
 public class FBMachineModels {
-    //Original Code by Phoenix
+
+    // Original Code by Phoenix
     public static MachineBuilder.ModelInitializer createOverlayCasingMachineModel(
-            String overlayName,
-            String casingTexturePath) {
+                                                                                  String overlayName,
+                                                                                  String casingTexturePath) {
         return (ctx, prov, builder) -> {
             builder.forAllStatesModels(state -> {
                 BlockModelBuilder model = prov.models().nested()

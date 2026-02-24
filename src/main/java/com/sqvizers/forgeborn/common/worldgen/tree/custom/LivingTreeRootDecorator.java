@@ -1,21 +1,21 @@
 package com.sqvizers.forgeborn.common.worldgen.tree.custom;
 
-import com.mojang.serialization.Codec;
-import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelSimulatedReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+
+import com.mojang.serialization.Codec;
+import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 
 public class LivingTreeRootDecorator extends TreeDecorator {
+
     public static final LivingTreeRootDecorator INSTANCE = new LivingTreeRootDecorator();
     public static final Codec<LivingTreeRootDecorator> CODEC = Codec.unit(() -> INSTANCE);
 
@@ -38,7 +38,8 @@ public class LivingTreeRootDecorator extends TreeDecorator {
             if (context.isAir(sidePos) || context.level().isStateAtPosition(sidePos, state -> state.canBeReplaced())) {
                 placeLog(context, sidePos);
             }
-            if (context.isAir(sidePos.above()) || context.level().isStateAtPosition(sidePos.above(), state -> state.canBeReplaced())) {
+            if (context.isAir(sidePos.above()) ||
+                    context.level().isStateAtPosition(sidePos.above(), state -> state.canBeReplaced())) {
                 if (random.nextFloat() < 0.7f) {
                     placeLog(context, sidePos.above());
                 }

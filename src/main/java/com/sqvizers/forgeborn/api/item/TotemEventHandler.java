@@ -1,6 +1,5 @@
 package com.sqvizers.forgeborn.api.item;
 
-import com.sqvizers.forgeborn.api.item.curio.ManaTotemItem;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -11,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import com.sqvizers.forgeborn.api.item.curio.ManaTotemItem;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 
 // ЗАМЕНИ "forgeborn" на свой реальный MODID из mods.toml!

@@ -1,8 +1,5 @@
 package com.sqvizers.forgeborn.common.worldgen.dimension;
 
-import com.mojang.datafixers.util.Pair;
-import com.sqvizers.forgeborn.ForgeBorn;
-import com.sqvizers.forgeborn.common.worldgen.biome.FBBiomes;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -21,30 +18,42 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+
+import com.mojang.datafixers.util.Pair;
+import com.sqvizers.forgeborn.ForgeBorn;
+import com.sqvizers.forgeborn.common.worldgen.biome.FBBiomes;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 import java.util.List;
 import java.util.OptionalLong;
 
 public class FBDimensions {
+
     public static final ResourceKey<LevelStem> ALFHEIM_KEY = ResourceKey.create(Registries.LEVEL_STEM,
             new ResourceLocation(ForgeBorn.MOD_ID, "alfheim"));
     public static final ResourceKey<Level> ALFHEIM_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
             new ResourceLocation(ForgeBorn.MOD_ID, "alfheim"));
     public static final ResourceKey<DimensionType> ALFHEIM_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE,
             new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_type"));
-    public static final ResourceKey<NoiseGeneratorSettings> ALFHEIM_NOISE_GEN = ResourceKey.create(Registries.NOISE_SETTINGS,
+    public static final ResourceKey<NoiseGeneratorSettings> ALFHEIM_NOISE_GEN = ResourceKey.create(
+            Registries.NOISE_SETTINGS,
             new ResourceLocation(ForgeBorn.MOD_ID, "alfheim_noise_gen"));
 
+    private static final ResourceKey<DensityFunction> MC_SHIFT_X = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "shift_x"));
+    private static final ResourceKey<DensityFunction> MC_SHIFT_Z = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "shift_z"));
+    private static final ResourceKey<DensityFunction> MC_Y = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "y"));
+    private static final ResourceKey<DensityFunction> MC_CONTINENTS = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "overworld/continents"));
+    private static final ResourceKey<DensityFunction> MC_EROSION = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "overworld/erosion"));
+    private static final ResourceKey<DensityFunction> MC_RIDGES = ResourceKey.create(Registries.DENSITY_FUNCTION,
+            new ResourceLocation("minecraft", "overworld/ridges"));
 
-    private static final ResourceKey<DensityFunction> MC_SHIFT_X = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "shift_x"));
-    private static final ResourceKey<DensityFunction> MC_SHIFT_Z = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "shift_z"));
-    private static final ResourceKey<DensityFunction> MC_Y = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "y"));
-    private static final ResourceKey<DensityFunction> MC_CONTINENTS = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/continents"));
-    private static final ResourceKey<DensityFunction> MC_EROSION = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/erosion"));
-    private static final ResourceKey<DensityFunction> MC_RIDGES = ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/ridges"));
-
-    private static DensityFunction getFunction(HolderGetter<DensityFunction> functions, ResourceKey<DensityFunction> key) {
+    private static DensityFunction getFunction(HolderGetter<DensityFunction> functions,
+                                               ResourceKey<DensityFunction> key) {
         return new DensityFunctions.HolderHolder(functions.getOrThrow(key));
     }
 
@@ -74,22 +83,22 @@ public class FBDimensions {
         DensityFunction xShift = getFunction(functions, MC_SHIFT_X);
         DensityFunction zShift = getFunction(functions, MC_SHIFT_Z);
         DensityFunction yFunc = getFunction(functions, MC_Y);
-        DensityFunction base3d = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/sloped_cheese")));
+        DensityFunction base3d = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION,
+                new ResourceLocation("minecraft", "overworld/sloped_cheese")));
 
         // Пещеры
-        DensityFunction cavesEntrances = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/caves/entrances")));
-        DensityFunction cavesPillars = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/caves/pillars")));
-        DensityFunction cavesSpaghetti = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "overworld/caves/spaghetti_2d")));
-
+        DensityFunction cavesEntrances = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION,
+                new ResourceLocation("minecraft", "overworld/caves/entrances")));
+        DensityFunction cavesPillars = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION,
+                new ResourceLocation("minecraft", "overworld/caves/pillars")));
+        DensityFunction cavesSpaghetti = getFunction(functions, ResourceKey.create(Registries.DENSITY_FUNCTION,
+                new ResourceLocation("minecraft", "overworld/caves/spaghetti_2d")));
 
         DensityFunction finalDensity = DensityFunctions.interpolated(
                 DensityFunctions.min(base3d,
                         DensityFunctions.max(
                                 DensityFunctions.add(cavesEntrances, cavesSpaghetti),
-                                cavesPillars
-                        )
-                )
-        );
+                                cavesPillars)));
 
         context.register(ALFHEIM_NOISE_GEN, new NoiseGeneratorSettings(
                 NoiseSettings.create(-64, 384, 1, 1),
@@ -112,34 +121,30 @@ public class FBDimensions {
                         finalDensity,
                         DensityFunctions.zero(),
                         DensityFunctions.zero(),
-                        DensityFunctions.zero()
-                ),
+                        DensityFunctions.zero()),
 
                 SurfaceRules.sequence(
 
-                        SurfaceRules.ifTrue(SurfaceRules.verticalGradient("minecraft:bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)),
+                        SurfaceRules.ifTrue(
+                                SurfaceRules.verticalGradient("minecraft:bedrock_floor", VerticalAnchor.bottom(),
+                                        VerticalAnchor.aboveBottom(5)),
                                 SurfaceRules.state(Blocks.BEDROCK.defaultBlockState())),
-
 
                         SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(0, false, CaveSurface.FLOOR),
                                 SurfaceRules.sequence(
 
-                                        SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), SurfaceRules.state(Blocks.GRASS_BLOCK.defaultBlockState())),
-                                        SurfaceRules.state(Blocks.GRASS_BLOCK.defaultBlockState())
-                                )
-                        ),
-
+                                        SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0),
+                                                SurfaceRules.state(Blocks.GRASS_BLOCK.defaultBlockState())),
+                                        SurfaceRules.state(Blocks.GRASS_BLOCK.defaultBlockState()))),
 
                         SurfaceRules.ifTrue(SurfaceRules.stoneDepthCheck(3, true, CaveSurface.FLOOR),
-                                SurfaceRules.state(Blocks.DIRT.defaultBlockState()))
-                ),
+                                SurfaceRules.state(Blocks.DIRT.defaultBlockState()))),
                 List.of(),
                 63,
                 false,
                 true,
                 false,
-                true
-        ));
+                true));
     }
 
     public static void bootstrapStem(BootstapContext<LevelStem> context) {
@@ -155,9 +160,7 @@ public class FBDimensions {
                                         biomeRegistry.getOrThrow(FBBiomes.LIVINGWOOD_FOREST)),
 
                                 Pair.of(Climate.parameters(0.5F, 0.5F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F),
-                                        biomeRegistry.getOrThrow(FBBiomes.DREAMWOOD_PLAINS))
-                        ))
-                ),
+                                        biomeRegistry.getOrThrow(FBBiomes.DREAMWOOD_PLAINS))))),
                 noiseGenSettings.getOrThrow(ALFHEIM_NOISE_GEN));
 
         context.register(ALFHEIM_KEY, new LevelStem(dimTypes.getOrThrow(ALFHEIM_TYPE), generator));

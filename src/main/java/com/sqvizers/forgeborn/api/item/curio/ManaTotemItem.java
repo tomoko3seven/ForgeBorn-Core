@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaForgeCapabilities;
@@ -55,8 +56,8 @@ public class ManaTotemItem extends Item implements ManaDissolvable {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         int mana = getManaStatic(stack);
         tooltip.add(Component.translatable("Mana: %s / %s",
-                        String.format("%,d", mana),
-                        String.format("%,d", MAX_MANA))
+                String.format("%,d", mana),
+                String.format("%,d", MAX_MANA))
                 .withStyle(ChatFormatting.BLUE));
     }
 
@@ -81,6 +82,7 @@ public class ManaTotemItem extends Item implements ManaDissolvable {
     }
 
     private static class ManaProvider implements ICapabilityProvider {
+
         private final ItemStack stack;
         private final LazyOptional<ManaItem> handler;
 
@@ -99,21 +101,53 @@ public class ManaTotemItem extends Item implements ManaDissolvable {
     }
 
     private static class ManaItemImpl implements ManaItem {
+
         private final ItemStack stack;
 
-        public ManaItemImpl(ItemStack stack) { this.stack = stack; }
+        public ManaItemImpl(ItemStack stack) {
+            this.stack = stack;
+        }
 
-        @Override public int getMana() { return getManaStatic(stack); }
-        @Override public int getMaxMana() { return MAX_MANA; }
-        @Override public void addMana(int mana) {
+        @Override
+        public int getMana() {
+            return getManaStatic(stack);
+        }
+
+        @Override
+        public int getMaxMana() {
+            return MAX_MANA;
+        }
+
+        @Override
+        public void addMana(int mana) {
             if (mana == 0) return;
             int current = getMana();
             stack.getOrCreateTag().putInt(TAG_MANA, Mth.clamp(current + mana, 0, MAX_MANA));
         }
-        @Override public boolean canReceiveManaFromPool(BlockEntity pool) { return true; }
-        @Override public boolean canReceiveManaFromItem(ItemStack other) { return true; }
-        @Override public boolean canExportManaToPool(BlockEntity pool) { return false; }
-        @Override public boolean canExportManaToItem(ItemStack other) { return false; }
-        @Override public boolean isNoExport() { return true; }
+
+        @Override
+        public boolean canReceiveManaFromPool(BlockEntity pool) {
+            return true;
+        }
+
+        @Override
+        public boolean canReceiveManaFromItem(ItemStack other) {
+            return true;
+        }
+
+        @Override
+        public boolean canExportManaToPool(BlockEntity pool) {
+            return false;
+        }
+
+        @Override
+        public boolean canExportManaToItem(ItemStack other) {
+            return false;
+        }
+
+        @Override
+        public boolean isNoExport() {
+            return true;
+        }
     }
 }

@@ -8,17 +8,7 @@ import com.gregtechceu.gtceu.api.machine.MachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 
-import com.sqvizers.forgeborn.common.data.datagen.FBDatagen;
-import com.sqvizers.forgeborn.common.data.datagen.FBWorldGenProvider;
-import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
-import com.sqvizers.forgeborn.common.worldgen.dimension.FBDimensions;
-import com.sqvizers.forgeborn.common.worldgen.tree.FBTrunkPlacerTypes;
-import com.sqvizers.forgeborn.network.PacketHandler;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,14 +16,17 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import com.sqvizers.forgeborn.common.data.*;
+import com.sqvizers.forgeborn.common.data.datagen.FBDatagen;
 import com.sqvizers.forgeborn.common.machine.multiblock.MultiblockInit;
 import com.sqvizers.forgeborn.common.machine.simple.SimpleMachines;
 import com.sqvizers.forgeborn.common.registry.FBRegistration;
+import com.sqvizers.forgeborn.common.registry.FBTreeDecoratorTypes;
+import com.sqvizers.forgeborn.common.worldgen.dimension.FBDimensions;
+import com.sqvizers.forgeborn.common.worldgen.tree.FBTrunkPlacerTypes;
 import com.sqvizers.forgeborn.gtbridge.FBRecipeTypes;
+import com.sqvizers.forgeborn.network.PacketHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.concurrent.CompletableFuture;
 
 @Mod(ForgeBorn.MOD_ID)
 public class ForgeBorn {

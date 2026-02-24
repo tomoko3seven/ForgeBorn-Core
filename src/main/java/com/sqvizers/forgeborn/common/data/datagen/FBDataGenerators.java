@@ -2,9 +2,7 @@ package com.sqvizers.forgeborn.common.data.datagen;
 
 import com.gregtechceu.gtceu.api.registry.registrate.SoundEntryBuilder;
 
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -12,8 +10,8 @@ import net.minecraftforge.fml.common.Mod;
 import com.sqvizers.forgeborn.ForgeBorn;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public class FBDataGenerators {
-    //Original Code by Phoenix
+public class FBDataGenerators {
+    // Original Code by Phoenix
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
@@ -25,4 +23,4 @@ import com.sqvizers.forgeborn.ForgeBorn;
                     new SoundEntryBuilder.SoundEntryProvider(packOutput, ForgeBorn.MOD_ID));
         }
     }
-    }
+}

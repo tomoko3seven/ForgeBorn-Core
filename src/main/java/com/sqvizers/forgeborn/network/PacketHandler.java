@@ -1,8 +1,5 @@
 package com.sqvizers.forgeborn.network;
 
-import com.sqvizers.forgeborn.api.item.ManaBuilderItem;
-import com.sqvizers.forgeborn.api.item.curio.TemplateArmItem;
-import com.sqvizers.forgeborn.network.item.arms.ArmAbilityPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,14 +12,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
+import com.sqvizers.forgeborn.api.item.ManaBuilderItem;
+import com.sqvizers.forgeborn.network.item.arms.ArmAbilityPacket;
+
 public class PacketHandler {
+
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation("forgeborn", "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
-    );
+            PROTOCOL_VERSION::equals);
 
     private static int packetId = 0;
 
@@ -50,14 +50,11 @@ public class PacketHandler {
             if (stack.getItem() instanceof ManaBuilderItem) {
                 event.setCanceled(true);
 
-
                 int direction = event.getScrollDelta() > 0 ? 1 : -1;
                 int currentSize = ManaBuilderItem.getSize(stack);
                 int newSize = Math.max(0, Math.min(currentSize + direction, 10));
 
-
                 ManaBuilderItem.setSize(stack, newSize);
-
 
                 INSTANCE.sendToServer(new PacketSyncSize(newSize));
 

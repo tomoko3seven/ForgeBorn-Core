@@ -34,8 +34,7 @@ public class MeteorEntity extends Entity {
                 pos, nextPos,
                 ClipContext.Block.COLLIDER,
                 ClipContext.Fluid.NONE,
-                this
-        ));
+                this));
 
         if (hitResult.getType() != HitResult.Type.MISS) {
             this.setPos(hitResult.getLocation());
@@ -80,22 +79,26 @@ public class MeteorEntity extends Entity {
 
         BlockPos.betweenClosedStream(center.offset(-foliageRadius, -oreRadius, -foliageRadius),
                 center.offset(foliageRadius, oreRadius, foliageRadius)).forEach(pos -> {
-            double distanceSq = pos.distSqr(center);
+                    double distanceSq = pos.distSqr(center);
 
-            if (distanceSq <= oreRadius * oreRadius) {
-                serverLevel.setBlock(pos, Blocks.IRON_ORE.defaultBlockState(), 3);
-            }
-            else if (distanceSq <= foliageRadius * foliageRadius) {
-                if (serverLevel.getBlockState(pos).is(BlockTags.LEAVES)) {
-                    serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-                }
-            }
-        });
+                    if (distanceSq <= oreRadius * oreRadius) {
+                        serverLevel.setBlock(pos, Blocks.IRON_ORE.defaultBlockState(), 3);
+                    } else if (distanceSq <= foliageRadius * foliageRadius) {
+                        if (serverLevel.getBlockState(pos).is(BlockTags.LEAVES)) {
+                            serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                        }
+                    }
+                });
 
         serverLevel.explode(this, this.getX(), this.getY(), this.getZ(), 20.0F, false, Level.ExplosionInteraction.NONE);
     }
 
-    @Override protected void defineSynchedData() {}
-    @Override protected void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {}
-    @Override protected void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {}
+    @Override
+    protected void defineSynchedData() {}
+
+    @Override
+    protected void readAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {}
+
+    @Override
+    protected void addAdditionalSaveData(net.minecraft.nbt.CompoundTag tag) {}
 }

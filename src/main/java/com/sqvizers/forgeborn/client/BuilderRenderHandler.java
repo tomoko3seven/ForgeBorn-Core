@@ -1,8 +1,5 @@
 package com.sqvizers.forgeborn.client;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sqvizers.forgeborn.api.item.ManaBuilderItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.RenderType;
@@ -16,6 +13,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.sqvizers.forgeborn.api.item.ManaBuilderItem;
 
 import java.awt.*;
 import java.util.List;
@@ -43,8 +44,7 @@ public class BuilderRenderHandler {
                 blockRay.getBlockPos(),
                 blockRay.getDirection(),
                 ManaBuilderItem.getSize(stack),
-                ManaBuilderItem.getMode(stack)
-        );
+                ManaBuilderItem.getMode(stack));
 
         PoseStack poseStack = event.getPoseStack();
         poseStack.pushPose();
@@ -60,8 +60,7 @@ public class BuilderRenderHandler {
                     buffer,
                     pos.getX(), pos.getY(), pos.getZ(),
                     pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1,
-                    1.0F, 1.0F, 1.0F, 0.8F
-            );
+                    1.0F, 1.0F, 1.0F, 0.8F);
         }
 
         poseStack.popPose();
